@@ -44,7 +44,7 @@ Pro toto zadání budete pracovat z větve `linux-intro`.
 > [!CAUTION]  
 > Všechny změny si průběžně pushujte do repozitáře. Jakékoliv změny, které nejsou uloženy ve vašem git repozitáři, mohou být navždy ztraceny!
 
-1. Udělejte si fork repozitáře [mpc-rbt-student](https://github.com/Robotics-BUT/mpc-rbt-student) do svého účtu na GitHubu.
+1. Udělejte si fork repozitáře [mpc-rbt-student](https://github.com/Robotics-BUT/mpc-rbt-student) do svého účtu na GitHubu a v sekci `Actions` povolte vykonávání `workflows`.
 > [!WARNING]
 > Pokud necháte zaškrtnutou možnost "Copy the `main` branch only", naklonuje se vám pouze větev `main`. Zbýlé větve se pak musí do forku přidat podle [těchto pokynů](https://gist.github.com/asanchezr/fd8f0fec142ff053c9d5332598a86a2b).
 
