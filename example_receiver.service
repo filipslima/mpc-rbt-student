@@ -4,12 +4,12 @@ Wants = network-online.target
 After = local-fs.target network-online.target
 
 [Service]
-User =
-WorkingDirectory =
-ExecStart =
+User = filip
+WorkingDirectory =/home/filip/workspace_rbt/mpc-rbt-student
+ExecStart =/home/filip/workspace_rbt/mpc-rbt-student/run_receiver.sh
 Restart = on-failure
 RestartSec = 5
 TimeoutStopSec = 5
 
 [Install]
-WantedBy = multi-user.target
+WantedBy = multi-user.targetS

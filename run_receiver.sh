@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -eo pipefail
+
+# Set default LOG_LEVEL if not already set
+export LOG_LEVEL=${LOG_LEVEL:-6}
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BIN="${ROOT_DIR}/build/receiver_node"
