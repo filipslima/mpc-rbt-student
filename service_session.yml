@@ -6,5 +6,5 @@ windows:
   - monitoring:
       layout: even-vertical
       panes:
-        - journalctl -u example_receiver.service -f
-        - journalctl -u example_sender.service -f
+        - watch "systemctl status example_receiver.service"
+        - watch "systemctl status example_sender.service"

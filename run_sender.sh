@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+source /opt/ros/humble/setup.bash
+
 # Set default LOG_LEVEL if not already set
-export LOG_LEVEL=${LOG_LEVEL:-6}
+export LOG_LEVEL=${LOG_LEVEL:-1}
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BIN="${ROOT_DIR}/build/sender_node"

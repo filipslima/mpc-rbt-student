@@ -20,7 +20,7 @@ void Sender::Node::onDataTimerTick()
   data.x += 1.0;
   data.y += 1.0;
   data.z += 1.0;
-  data.frame = "sender_frame";
+  data.frame = "test_frame";
 
   Socket::IPFrame frame{
     .port = config.remotePort,
