@@ -27,5 +27,9 @@ target_include_directories(TestNode PUBLIC
 ament_target_dependencies(TestNode rclcpp std_msgs sensor_msgs geometry_msgs)
 
 install(TARGETS TestNode DESTINATION lib/${PROJECT_NAME})
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
 
 ament_package()
