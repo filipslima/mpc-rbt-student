@@ -10,5 +10,33 @@ def generate_launch_description():
 
     
     return LaunchDescription([
+        Node(
+            package='mpc_rbt_student',
+            executable='localization',
+            name='localization',
+            output='screen',
+            parameters=[{'use_sim_time': True}]
 
+        ),
+        Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            arguments=['-d', rviz_config_path],
+            output='screen',
+            parameters=[{'use_sim_time': True}]
+        ),
+        Node(
+            package='mpc_rbt_student',
+            executable='planning',
+            name="planning",
+            output="screen",
+            parameters=[{'use_sim_time': True}]
+        ),
+        Node(
+        package='mpc_rbt_student',
+        executable='motion_control',
+        name='motion_control_node',
+        output='screen'
+        )
     ])

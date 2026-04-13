@@ -21,23 +21,50 @@ class MotionControlNode : public rclcpp::Node {
         MotionControlNode();
     
     private:
+        using NavigateToPose = nav2_msgs::action::NavigateToPose;
+        using GoalHandleNavigateToPose = rclcpp_action::ServerGoalHandle<NavigateToPose>;
+        using GetPlan = nav_msgs::srv::GetPlan;
+
         // Parameters
         // TO DO
+        double max_linear_velocity_;
+        double max_angular_velocity_;
+        double lookahead_distance_;
+        double goal_tolerance_;
+        double collision_distance_threshold_;
+
+        bool navigation_active_;
+        bool collision_detected_;
+        bool odom_received_;
+        bool path_received_;
 
         // Methods
+        void requestPlan(const geometry_msgs::msg::PoseStamped & goal);
+        void pathCallback(rclcpp::Client<GetPlan>::SharedFuture future);
+
         void checkCollision();
         void updateTwist();
         void execute();
-            
-        // Callbacks
-        rclcpp_action::GoalResponse navHandleGoal(const rclcpp_action::GoalUUID & uuid, std::shared_ptr<const nav2_msgs::action::NavigateToPose::Goal> goal);
-        rclcpp_action::CancelResponse navHandleCancel(const std::shared_ptr<rclcpp_action::ServerGoalHandle<nav2_msgs::action::NavigateToPose>> goal_handle);
-        void navHandleAccepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<nav2_msgs::action::NavigateToPose>> goal_handle);
-        
-        void pathCallback(rclcpp::Client<nav_msgs::srv::GetPlan>::SharedFuture);
-        void odomCallback(const nav_msgs::msg::Odometry & msg);
-        void lidarCallback(const sensor_msgs::msg::LaserScan & msg);
-    
+
+        void publishZeroTwist();
+        double getYawFromPose(const geometry_msgs::msg::Pose & pose) const;
+        double distanceToGoal() const;
+
+        // Action callbacks
+        rclcpp_action::GoalResponse navHandleGoal(
+            const rclcpp_action::GoalUUID & uuid,
+            std::shared_ptr<const NavigateToPose::Goal> goal);
+
+        rclcpp_action::CancelResponse navHandleCancel(
+            const std::shared_ptr<GoalHandleNavigateToPose> goal_handle);
+
+        void navHandleAccepted(
+            const std::shared_ptr<GoalHandleNavigateToPose> goal_handle);
+
+        // Topic callbacks
+        void odomCallback(const nav_msgs::msg::Odometry::SharedPtr msg);
+        void lidarCallback(const sensor_msgs::msg::LaserScan::SharedPtr msg);
+
         // Clients
         rclcpp::Client<nav_msgs::srv::GetPlan>::SharedPtr plan_client_;    
     

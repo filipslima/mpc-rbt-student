@@ -7,8 +7,10 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "nav_msgs/msg/occupancy_grid.hpp"
+#include "nav_msgs/msg/path.hpp"
 #include "nav_msgs/srv/get_map.hpp"
 #include "nav_msgs/srv/get_plan.hpp"
+#include "geometry_msgs/msg/pose_stamped.hpp"
 
 // A-star cell structure
 struct Cell {

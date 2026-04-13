@@ -30,6 +30,7 @@ include_directories(PUBLIC
 set(dependencies
         rclcpp
         rclcpp_action
+        geometry_msgs
         sensor_msgs
         nav_msgs
         nav2_msgs
@@ -39,9 +40,14 @@ set(dependencies
         mpc_rbt_simulator
 )
 
-add_library(${PROJECT_NAME} SHARED src/KeyboardControl.cpp)
+add_library(${PROJECT_NAME} SHARED 
+        src/KeyboardControl.cpp
+        src/Localization.cpp
+        src/Planning.cpp
+        src/MotionControl.cpp)
 
 ament_target_dependencies(${PROJECT_NAME} ${dependencies})
+
 install(TARGETS ${PROJECT_NAME}
         ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib
@@ -58,15 +64,22 @@ install(TARGETS keyboard_control DESTINATION lib/${PROJECT_NAME})
 # * * * * * * * * * * * * * * * * *
 # *      Lab 05_localization
 # * * * * * * * * * * * * * * * * *
-
+add_executable(localization src/localization_node.cpp)
+target_link_libraries(localization ${PROJECT_NAME})
+install(TARGETS localization DESTINATION lib/${PROJECT_NAME})
 # * * * * * * * * * * * * * * * * *
 # *      Lab 06_planning
 # * * * * * * * * * * * * * * * * *
-
+add_executable(planning src/planning_node.cpp)
+target_link_libraries(planning ${PROJECT_NAME})
+install(TARGETS planning DESTINATION lib/${PROJECT_NAME})
 # * * * * * * * * * * * * * * * * *
 # *       Lab 07_control
 # * * * * * * * * * * * * * * * * *
-
+add_executable(motion_control src/motion_control_node.cpp)
+target_link_libraries(motion_control ${PROJECT_NAME})
+ament_target_dependencies(motion_control ${dependencies})
+install(TARGETS motion_control DESTINATION lib/${PROJECT_NAME})
 # * * * * * * * * * * * * * * * * *
 # *    Lab 08_behavior trees
 # * * * * * * * * * * * * * * * * *

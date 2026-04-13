@@ -31,6 +31,12 @@ private:
 
     nav_msgs::msg::Odometry odometry_;
     rclcpp::Time last_time_;
+
+    bool first_message_{true};
+
+    double x_{0.0};
+    double y_{0.0};
+    double theta_{0.0};
 };
 
 #endif // LOCALIZATION_HPP
