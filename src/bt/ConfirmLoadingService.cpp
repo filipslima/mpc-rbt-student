@@ -26,7 +26,11 @@ public:
     {
         // TODO: Zkontrolujte response->success. Pokud je false, vraťte FAILURE.
         // Tento node nemá žádný output port – stačí vrátit SUCCESS.
-        return BT::NodeStatus::FAILURE;
+        if (!response->success) {
+            return BT::NodeStatus::FAILURE;
+        }
+
+        return BT::NodeStatus::SUCCESS;
     }
 
     BT::NodeStatus onFailure(BT::ServiceNodeErrorCode error) override
